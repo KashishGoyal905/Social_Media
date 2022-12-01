@@ -25,7 +25,7 @@ passport.use(new LocalStrartegy({
 
 passport.serializeUser(function (user, done) {
     return done(null, user.id);
-})
+});
 
 passport.deserializeUser(function (id, done) {
     User.findById(id, function (err, user) {
@@ -44,9 +44,10 @@ passport.checkauthentication = function (req, res, next) {
     }
     return res.redirect('/users/sign-in');
 }
+
 passport.setAuthenticatedUser = function (req, res, next) {
     if (req.isAuthenticated) {
-        res.locals.user = req.user
+        res.locals.user = req.user;
     }
     return next();
 }
