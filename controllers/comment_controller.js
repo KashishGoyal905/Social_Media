@@ -16,7 +16,7 @@ module.exports.create = function (req, res) {
                 console.log(comment);
                 post.comments.push(comment);
                 post.save();
-                res.redirect('back');
+                res.redirect('/');
             });
         }
     })

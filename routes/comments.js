@@ -4,7 +4,7 @@ const router = express.Router();
 const passport = require('passport');
 const commentController = require('../controllers/comment_controller');
 
-router.post('/create-comment/:id', commentController.create);
+router.post('/create-comment/:id',passport.checkauthentication ,commentController.create);
 
 
 module.exports = router;

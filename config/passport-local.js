@@ -40,7 +40,7 @@ passport.deserializeUser(function (id, done) {
 
 passport.checkauthentication = function (req, res, next) {
     if (req.isAuthenticated) {
-        next();
+        return next();
     }
     return res.redirect('/users/sign-in');
 }
