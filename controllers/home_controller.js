@@ -1,23 +1,42 @@
 const Post = require('../models/posts');
 
 
-
 module.exports.home = function (req, res) {
-    Post.find({}).populate('user').populate({
+    Post.find({})
+    .populate('user')
+    .populate({
         path: 'comments',
-        populate: {
+        populate:{
             path: 'user'
         }
-    }).exec(function (err, post) {
+    })
+    .exec(function (err,post) {
         if (err) {
             console.log("error in finding post", err);
             return;
-        }
-        return res.render('home', {
+            }
+            return res.render('home', {
             posts: post,
         })
     })
 }
+//! populating 
+// module.exports.home = function (req, res) {
+//     Post.find({}).populate('user').populate({
+//         path: 'comments',
+//         populate: {
+//             path: 'user'
+//         }
+//     }).exec(function (err, post) {
+//         if (err) {
+//             console.log("error in finding post", err);
+//             return;
+//         }
+//         return res.render('home', {
+//             posts: post,
+//         })
+//     })
+// }
 //! by pouplating u means e=means going one step inside of user we can ascess its properties
 // module.exports.home = function (req, res) {
 //     Post.find({}).populate('user').exec(function (err, post) {
