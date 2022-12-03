@@ -1,0 +1,44 @@
+body {
+    background-color: #3FA796;
+    color: #FEC260;
+}
+
+h1 {
+    text-align: center;
+    color: #2A0944;
+}
+
+/* for posts */
+#post form {
+    display: inline-block;
+    position: absolute;
+}
+
+#post form textarea {
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: grey;
+}
+
+#postButton {
+    background-color: green;
+    color: white;
+    height: 35px;
+    width: 65px;
+    cursor: pointer;
+    position: absolute;
+    margin-top:17px;
+    margin-left: 15px;
+    font-size: 16px;
+
+}
+
+#post h2 {
+    position: relative;
+    margin-left: 35px;
+    display: inline-block;
+}
+
+
+/* for container */
+

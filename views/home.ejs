@@ -5,56 +5,63 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/home.css">
     <title>Document</title>
 </head>
 
 <body>
-    <h1>homee</h1>
-
-    <section>
+    <h1>Codeial</h1>
+    <section id="post">
         <%if(locals.user){%>
+            <h2>Create a Post: </h2>
             <form action="/posts/create-post" method="post">
-                <textarea name="content" cols="40" rows="4" placeholder="enter your content here"></textarea>
-                <button type="submit">Post</button>
+                <textarea name="content" cols="60" rows="3" placeholder="enter your content here"></textarea>
+                <button type="submit" id="postButton">Post</button>
             </form>
             <% } %>
     </section>
+    <div class="container">
 
-    <div class="posts">
-        <h1>Posts-</h1>
-        <ul>
-            <% for(let post of posts) {%>
-                <li>
-                    <h2>
-                        <%=post.content%>
-                            -<%=post.user.username%>
-                    </h2>
+        <div class="posts">
+            <h1>Posts-</h1>
+            <ul>
+                <% for(let post of posts) {%>
+                    <li>
+                        <h2>
+                            <%=post.content%>
+                                -<%=post.user.username%>
+                        </h2>
 
-                    <div class="comments">
+                        <div class="comments">
 
-                        <%if(locals.user){%>
-                            <form action="/comments/create-comment/<%=post._id %>" method="post">
-                                <textarea name="content" cols="30" rows="1"
-                                    placeholder="enter your comment here"></textarea>
-                                <button type="submit">Comment</button>
-                            </form>
-                            <% } %>
+                            <%if(locals.user){%>
+                                <form action="/comments/create-comment/<%=post._id %>" method="post">
+                                    <textarea name="content" cols="30" rows="1"
+                                        placeholder="enter your comment here"></textarea>
+                                    <button type="submit">Comment</button>
+                                </form>
+                                <% } %>
 
-                                <div class="comment-list">
-                                    <ul>
-                                        <% for(let comment of post.comments) { %>
-                                            <li>
-                                                <%= comment.content %>
-                                                <br>
-                                                <small> <%= comment.user.email %> </small>
-                                            </li>
-                                            <% } %>
-                                    </ul>
-                                </div>
-                    </div>
-                </li>
-                <% } %>
-        </ul>
+                                    <div class="comment-list">
+                                        <ul>
+                                            <% for(let comment of post.comments) { %>
+                                                <li>
+                                                    <%= comment.content %>
+                                                        <br>
+                                                        <small>
+                                                            <%= comment.user.email %>
+                                                        </small>
+                                                </li>
+                                                <% } %>
+                                        </ul>
+                                    </div>
+                        </div>
+                    </li>
+                    <% } %>
+            </ul>
+        </div>
+
+        
     </div>
 </body>
 

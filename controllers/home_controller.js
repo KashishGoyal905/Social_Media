@@ -1,5 +1,5 @@
 const Post = require('../models/posts');
-
+const User = require('../models/users');
 
 module.exports.home = function (req, res) {
     Post.find({})
