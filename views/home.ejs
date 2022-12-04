@@ -10,7 +10,16 @@
 </head>
 
 <body>
-    <h1>Codeial</h1>
+    <div class="navbar">
+        <div class="heading">
+            <h1>Codeial</h1>
+        </div>
+        <div class="links">
+            <h2><a href="/users/sign-in">Sign-In</a></h2>
+            <h2><a href="/users/sign-up">Sign Up</a></h2>
+            <h2><a href="/users/sign-out">Sign-Out</a></h2>
+        </div>
+    </div>
     <section id="post">
         <%if(locals.user){%>
             <h2>Create a Post: </h2>
@@ -30,10 +39,12 @@
                         <h2>
                             <%=post.content%>
                                 -<%=post.user.username%>
+                                    <% if(locals.user && locals.user.id==post.user.id) {%>
+                                        <a href="/posts/destroy/<%=post._id %>">X</a>
+                                        <% } %>
                         </h2>
 
                         <div class="comments">
-
                             <%if(locals.user){%>
                                 <form action="/comments/create-comment/<%=post._id %>" method="post">
                                     <textarea name="content" cols="30" rows="1"
@@ -49,8 +60,11 @@
                                                     <%= comment.content %>
                                                         <br>
                                                         <small>
-                                                            <%= comment.user.email %>
+                                                            --<%= comment.user.username %>
                                                         </small>
+                                                        <% if(locals.user && locals.user.id==comment.user.id) {%>
+                                                            <a href="/comments/destroy/<%=comment._id %>">X</a>
+                                                            <% } %>
                                                 </li>
                                                 <% } %>
                                         </ul>
@@ -61,7 +75,7 @@
             </ul>
         </div>
 
-        
+
     </div>
 </body>
 
