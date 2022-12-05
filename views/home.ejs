@@ -33,7 +33,7 @@
 
         <div class="posts">
             <h1>Posts-</h1>
-            <ul>
+            <ol>
                 <% for(let post of posts) {%>
                     <li>
                         <h2>
@@ -54,7 +54,7 @@
                                 <% } %>
 
                                     <div class="comment-list">
-                                        <ul>
+                                        <ol type="I">
                                             <% for(let comment of post.comments) { %>
                                                 <li>
                                                     <%= comment.content %>
@@ -67,15 +67,25 @@
                                                             <% } %>
                                                 </li>
                                                 <% } %>
-                                        </ul>
+                                        </ol>
                                     </div>
                         </div>
                     </li>
                     <% } %>
-            </ul>
+            </ol>
         </div>
 
-
+        <div class="users">
+            <h1>Users:</h1>
+            <% for(let user of users_list) {%>
+                <h2>
+                    <a href="/users/profile/<%= user._id%>">
+                        <%= user.username %>
+                    </a>
+                    - <%= user.email %>
+                </h2>
+                <% } %>
+        </div>
     </div>
 </body>
 

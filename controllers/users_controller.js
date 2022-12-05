@@ -1,13 +1,13 @@
 const User = require('../models/users');
 // action: show user profile
 module.exports.profile = function (req, res) {
-    User.find({}, function (err, users) {
+    User.findById(req.params.id, function (err, user) {
         if (err) {
             console.log("error in finding the user: ");
             return;
         }
         return res.render('profile', {
-            users_list: users,
+            user_profile: user,
         })
     })
 }
@@ -34,12 +34,22 @@ module.exports.create = function (req, res) {
 };
 
 module.exports.createSession = function (req, res) {
-    return res.redirect('/users/profile');
+    return res.redirect('/');
 }
 
 module.exports.signOut = function (req, res) {
-    req.logout(function(err) {
+    req.logout(function (err) {
         if (err) { return next(err); }
         res.redirect('/');
-      });
+    });
+}
+
+module.exports.update = function (req, res) {
+    if (req.user.id == req.params.id) {
+        User.findByIdAndUpdate(req.params.id, req.body, function (err, user) {
+            return res.redirect('/');
+        })
+    } else {
+        return re.status(401).send("unauthorize");
+    }
 }
