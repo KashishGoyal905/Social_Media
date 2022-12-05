@@ -66,8 +66,8 @@ h1 {
 
 #post form textarea {
     margin-top: 10px;
-    margin-left: 300px;
-    background-color: grey;
+    margin-left: 520px;
+    background-color: white;
 }
 
 #postButton {
@@ -85,10 +85,31 @@ h1 {
 
 #post h2 {
     position: absolute;
-    margin-left: 100px;
-    margin-top: -10px;
+    margin-left: 370px;
+    margin-top: 20px;
     display: inline-block;
 }
 
 
 /* for container */
+
+.container{
+    margin-top: 20px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow-x: scroll;
+    display: flex;
+}
+
+.posts{
+    width: 65%;
+    padding: 30px;
+}
+
+.users{
+    border-left: 1px solid black;
+    padding: 20px;
+    /* height: 100%; */
+    width: 35%;
+}

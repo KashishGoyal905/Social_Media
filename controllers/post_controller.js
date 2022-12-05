@@ -26,7 +26,7 @@ module.exports.destroy = function (req, res) {
             // deleteing all the comments related to this post
             Comment.deleteMany({ post: req.params.id }, function (err) {
                 return res.redirect('/');
-            })
+            });
         } else {
             return res.redirect('/');
         }

@@ -11,12 +11,11 @@ module.exports.home = function (req, res) {
         }
     })
     .exec(function (err,post) {
-        if (err) {
-            console.log("error in finding post", err);
-            return;
-            }
+        User.find({}, function (err,users){
             return res.render('home', {
             posts: post,
+            users_list: users
+        })
         })
     })
 }
