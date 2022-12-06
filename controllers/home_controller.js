@@ -1,38 +1,38 @@
 const Post = require('../models/posts');
 const User = require('../models/users');
 
-module.exports.home = function (req, res) {
-    Post.find({})
-    .populate('user')
-    .populate({
-        path: 'comments',
-        populate:{
-            path: 'user'
-        }
-    })
-    .exec(function (err,post) {
-        User.find({}, function (err,users){
-            return res.render('home', {
-            posts: post,
-            users_list: users
-        })
-        })
-    })
+//! with async await
+module.exports.home = async function (req, res) {
+    let post = await Post.find({})
+        .populate('user')
+        .populate({
+            path: 'comments',
+            populate: {
+                path: 'user'
+            }
+        });
+    let users = await User.find({});
+    return res.render('home', {
+        posts: post,
+        users_list: users
+    });
 }
-//! populating 
+//! without async await
 // module.exports.home = function (req, res) {
-//     Post.find({}).populate('user').populate({
+//     Post.find({})
+//     .populate('user')
+//     .populate({
 //         path: 'comments',
-//         populate: {
+//         populate:{
 //             path: 'user'
 //         }
-//     }).exec(function (err, post) {
-//         if (err) {
-//             console.log("error in finding post", err);
-//             return;
-//         }
-//         return res.render('home', {
+//     })
+//     .exec(function (err,post) {
+//         User.find({}, function (err,users){
+//             return res.render('home', {
 //             posts: post,
+//             users_list: users
+//         })
 //         })
 //     })
 // }
@@ -48,6 +48,7 @@ module.exports.home = function (req, res) {
 //         })
 //     })
 // }
+
 //! by this we get only the user id
 // module.exports.home = function (req, res) {
 //     Post.find({}, function (err, post) {

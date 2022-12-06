@@ -11,25 +11,22 @@ module.exports.create = function (req, res) {
             console.log("error in creating post");
             return;
         }
-        console.log(post);
         return res.redirect('/');
     })
 };
 
 // action: delete a post
-module.exports.destroy = function (req, res) {
+module.exports.destroy = async function (req, res) {
     // finding the post
-    Post.findById(req.params.id, function (err, post) {
-        // auth check see in comments
-        if (post.user == req.user.id) {
-            post.remove();
-            // deleteing all the comments related to this post
-            Comment.deleteMany({ post: req.params.id }, function (err) {
-                return res.redirect('/');
-            });
-        } else {
-            return res.redirect('/');
-        }
-    })
+    let post = await Post.findById(req.params.id);
+    // auth check see in comments
+    if (post.user == req.user.id) {
+        post.remove();
+        // deleteing all the comments related to this post
+        await Comment.deleteMany({ post: req.params.id });
+        return res.redirect('/');
+    } else {
+        return res.redirect('/');
+    }
 }
 
