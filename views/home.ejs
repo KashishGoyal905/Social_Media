@@ -15,12 +15,15 @@
             <h1>Codeial</h1>
         </div>
         <div class="links">
-            <h2><a href="/users/sign-in">Sign-In</a></h2>
-            <h2><a href="/users/sign-up">Sign Up</a></h2>
-            <h2><a href="/users/sign-out">Sign-Out</a></h2>
+            <%if(locals.user){%>
+                <h2><a href="/users/sign-out">Sign-Out</a></h2>
+                <% }else{ %>
+                    <h2><a href="/users/sign-in">Sign-In</a></h2>
+                    <h2><a href="/users/sign-up">Sign Up</a></h2>
+                    <% } %>
         </div>
     </div>
-    <section id="post">
+    <div id="post">
         <%if(locals.user){%>
             <h2>Create a Post: </h2>
             <form action="/posts/create-post" method="post">
@@ -28,11 +31,10 @@
                 <button type="submit" id="postButton">Post</button>
             </form>
             <% } %>
-    </section>
+    </div>
     <div class="container">
-
         <div class="posts">
-            <h1>Posts-</h1>
+            <h1>Posts</h1>
             <ol>
                 <% for(let post of posts) {%>
                     <li>
@@ -76,7 +78,7 @@
         </div>
 
         <div class="users">
-            <h1>Users:</h1>
+            <h1>Users</h1>
             <% for(let user of users_list) {%>
                 <h2>
                     <a href="/users/profile/<%= user._id%>">
