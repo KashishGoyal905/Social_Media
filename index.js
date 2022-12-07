@@ -1,6 +1,10 @@
 const express = require('express');
 const port = 8000;
+// for flash messages
+const flash = require('connect-flash');
 const app = express();
+// middleware for custom flash msgs
+const customMsg = require('./config/middleware');
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -36,6 +40,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
+// it will aloow every req to have a req.flash() function.
+app.use(flash());
+// it will set the msg to res of a every req;
+app.use(customMsg.flash);
 
 app.use('/', require('./routes'));
 
