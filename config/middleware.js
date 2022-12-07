@@ -1,0 +1,8 @@
+// middleware to send flash msgs to res of a req.
+module.exports.flash = function (req, res, next) {
+    res.locals.flash = {
+        'success': req.flash('success'),
+        'error': req.flash('error'),
+    };
+    next();
+}

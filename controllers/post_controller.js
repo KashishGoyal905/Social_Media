@@ -8,9 +8,10 @@ module.exports.create = function (req, res) {
         user: req.user._id,
     }, function (err, post) {
         if (err) {
-            console.log("error in creating post");
+            req.flash('error', "error in creating post");
             return;
         }
+        req.flash('success', "Post created successfully");
         return res.redirect('/');
     })
 };
@@ -24,8 +25,10 @@ module.exports.destroy = async function (req, res) {
         post.remove();
         // deleteing all the comments related to this post
         await Comment.deleteMany({ post: req.params.id });
+        req.flash('success', "Post deleted successfully");
         return res.redirect('/');
     } else {
+        req.flash('error', "you can not delete this post");
         return res.redirect('/');
     }
 }

@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <%if(locals.user.id == user_profile._id) {%>
+    <%if(locals.user.id==user_profile._id) {%>
         <h1>Update your details: <%= user.username%>
         </h1>
         <form action="/users/update/<%=user_profile._id%> " method="post">
@@ -18,7 +18,8 @@
                 value="<%= user_profile.username %>">
             <br>
             <label for="email">Email:</label>
-            <input type="email" name="email" id="email" placeholder="Enter your email" value="<%= user_profile.email %>">
+            <input type="email" name="email" id="email" placeholder="Enter your email"
+                value="<%= user_profile.email %>">
             <br>
             <button>Update</button>
         </form>

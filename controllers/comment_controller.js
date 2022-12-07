@@ -15,11 +15,12 @@ module.exports.create = async function (req, res) {
             // pushing comment id to the post comments array
             post.comments.push(comment);
             post.save();
+            req.flash('success', "Comment created successfully");
             res.redirect('/');
         }
     } catch (err) {
         if (err) {
-            console.log(err);
+            req.flash('error', "error in creating comment");
             return;
         }
     }
@@ -62,13 +63,15 @@ module.exports.destroy = async function (req, res) {
             comment.remove();
             // deleting that comment id form the post array of comments
             await Post.findByIdAndUpdate(post_id, { $pull: { comment: req.params.id } });
+            req.flash('success', "Comment deleted successfully");
             return res.redirect('/');
         } else {
+            req.flash('error', "you can not delete this comment");
             return res.redirect('/');
         }
     } catch (err) {
         if (err) {
-            console.log(err);
+            req.flash('error', "error in deleting comment");
             return;
         }
     }
