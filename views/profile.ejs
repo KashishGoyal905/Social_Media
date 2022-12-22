@@ -12,7 +12,7 @@
     <%if(locals.user.id==user_profile._id) {%>
         <h1>Update your details: <%= user.username%>
         </h1>
-        <form action="/users/update/<%=user_profile._id%> " method="post">
+        <form action="/users/update/<%=user_profile._id%> " method="post" enctype="multipart/form-data">
             <label for="username">Username:</label>
             <input type="username" name="username" id="username" placeholder="Enter your username"
                 value="<%= user_profile.username %>">
@@ -21,6 +21,7 @@
             <input type="email" name="email" id="email" placeholder="Enter your email"
                 value="<%= user_profile.email %>">
             <br>
+            <input type="file" placeholder="profile picture" name="avatar">
             <button>Update</button>
         </form>
         <% }else{%>
