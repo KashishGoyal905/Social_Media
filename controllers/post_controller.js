@@ -2,18 +2,29 @@ const Post = require('../models/posts');
 const Comment = require('../models/comments');
 
 // action: create a post
-module.exports.create = function (req, res) {
-    Post.create({
-        content: req.body.content,
-        user: req.user._id,
-    }, function (err, post) {
+module.exports.create = async function (req, res) {
+    try {
+        let post = await Post.create({
+            content: req.body.content,
+            user: req.user._id,
+        });
+
+        if (req.xhr) {
+            return res.status(200).json({
+                data: {
+                    post: post
+                },
+                message: "post created!"
+            })
+        }
+        req.flash('success', "Post created successfully");
+        return res.redirect('/');
+    } catch (err) {
         if (err) {
             req.flash('error', "error in creating post");
             return;
         }
-        req.flash('success', "Post created successfully");
-        return res.redirect('/');
-    })
+    }
 };
 
 // action: delete a post
@@ -25,6 +36,15 @@ module.exports.destroy = async function (req, res) {
         post.remove();
         // deleteing all the comments related to this post
         await Comment.deleteMany({ post: req.params.id });
+
+        if (req.xhr) {
+            return res.status(200).json({
+                data: {
+                    post_id: req.params.id
+                },
+                message: 'Post deleted'
+            })
+        }
         req.flash('success', "Post deleted successfully");
         return res.redirect('/');
     } else {

@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+    <!-- jquery cdn yo use jquery -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+     -->
+     <script src="https://code.jquery.com/jquery-3.6.2.js" integrity="sha256-pkn2CUZmheSeyssYw3vMp1+xyub4m+e+QK4sQskvuo4=" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 
@@ -28,7 +32,7 @@
     <div id="post">
         <%if(locals.user){%>
             <h2>Create a Post: </h2>
-            <form action="/posts/create-post" method="post">
+            <form action="/posts/create-post" method="post" id="newPostForm">
                 <textarea name="content" cols="60" rows="3" placeholder="enter your content here"></textarea>
                 <button type="submit" id="postButton">Post</button>
             </form>
@@ -39,14 +43,14 @@
 
         <div class="posts">
             <h1>Posts</h1>
-            <ol>
+            <ol id="posts-list">
                 <% for(let post of posts) {%>
-                    <li>
+                    <li id="post-<%= post._id%>">
                         <h2>
                             <%=post.content%>
                                 -<%=post.user.username%>
                                     <% if(locals.user && locals.user.id==post.user.id) {%>
-                                        <a href="/posts/destroy/<%=post._id %>">X</a>
+                                        <a href="/posts/destroy/<%=post._id %>" class="deletePostButton">X</a>
                                         <% } %>
                         </h2>
 
@@ -94,15 +98,15 @@
         </div>
     </div>
 
-
-    <!-- flash msgs -->
-    <script>
+<!-- to send ajax request-->
+    <script src="js/home_posts.js">
+    // flash msgs
     <% if (flash.success && flash.success.length > 0) {%>
             new Noty({
                 theme: 'relax',
                 text: '<%=flash.success%>',
                 type: 'success',
-                layout: 'topCenter',
+                layout: 'topRight',
                 timeout: 1000,
             }).show();
     <% } %>
@@ -111,7 +115,7 @@
                 theme: 'relax',
                 text: '<%=flash.error%>',
                 type: 'error',
-                layout: 'topCenter',
+                layout: 'topRight',
                 timeout: 1000,
             }).show();
     <% } %>

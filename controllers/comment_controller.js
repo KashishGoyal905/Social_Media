@@ -13,6 +13,7 @@ module.exports.create = async function (req, res) {
                 post: req.params.id,
             });
             // pushing comment id to the post comments array
+            console.log(post.comments);
             post.comments.push(comment);
             post.save();
             req.flash('success', "Comment created successfully");
