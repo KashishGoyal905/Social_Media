@@ -6,6 +6,8 @@ const app = express();
 // middleware for custom flash msgs
 const customMsg = require('./config/middleware');
 
+// for multer: image route
+app.use('/users/profile/uploads', express.static(__dirname + '/uploads'));
 app.set('view engine', 'ejs');
 app.set('views', './views');
 app.use(express.static('./assets'));
@@ -44,7 +46,6 @@ app.use(passport.setAuthenticatedUser);
 app.use(flash());
 // it will set the msg to res of a every req;
 app.use(customMsg.flash);
-
 app.use('/', require('./routes'));
 
 
