@@ -9,6 +9,8 @@
 </head>
 
 <body>
+    <img src="<%=user_profile.avatar %> " alt="user_profile.username" width="100" height="100">
+    <br>
     <%if(locals.user.id==user_profile._id) {%>
         <h1>Update your details: <%= user.username%>
         </h1>
